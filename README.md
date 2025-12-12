@@ -2,6 +2,10 @@
 
 **.m8** is a novel HTML compression format that reduces file sizes by replacing verbose HTML tags and attributes with compact numeric codes. Designed as both a transmission protocol and self-extracting file format, .m8 achieves 15-25% compression on typical web pages while maintaining full compatibility with standard HTML.
 
+## Story
+I have looked up at sysadmins for ages i always wanted to improve on something that effects everything to do with the internet. After a venture into CDN i looked at webpage compression. I soon had an idea for a system that takes strain off servers and onto visitors without making them wait to see a webpage. <br>
+As for the name .m8, it mainly came from rage, waiting for things to load.
+
 ## How It Works
 
 The .m8 format operates on a simple principle: HTML is inherently repetitive. Tags like `<div>`, `<span>`, and `<header>` appear dozens or hundreds of times in a single document. By mapping these common elements to short numeric codes, .m8 dramatically reduces file size:
