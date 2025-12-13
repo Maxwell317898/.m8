@@ -114,7 +114,7 @@ function generateSelfContained(originalHtml) {
 
   // Self-extracting HTML template with dynamic decompressor
   const selfExtractingHtml = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title></title></head><body>
+<html><head><meta charset="UTF-8"><title>Loading...</title></head><body>
 <script>
 (function(){
 const m8='${escaped}';
@@ -137,8 +137,11 @@ return '</'+lt+'>';
 });
 return h;
 }
+const html=d(m8,tm);
+const titleMatch=html.match(/<title[^>]*>([^<]*)<\\/title>/i);
+if(titleMatch)document.title=titleMatch[1];
 document.open();
-document.write(d(m8,tm));
+document.write(html);
 document.close();
 })();
 </script>
