@@ -114,7 +114,7 @@ function generateSelfContained(originalHtml) {
 
   // Self-extracting HTML template with dynamic decompressor
   const selfExtractingHtml = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Loading...</title></head><body>
+<html><head><meta charset="UTF-8"><title></title></head><body>
 <script>
 (function(){
 const m8='${escaped}';
