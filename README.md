@@ -31,8 +31,19 @@ The .m8 format operates on a simple principle: HTML is inherently repetitive. Ta
 
 > [!NOTE]
 > We would advise that people use the self contained version along with any other compression methods, if you do not want to mess with your hosting configuration.
+### 1. Self-Contained Files (recomended for general use)
 
-### 1. Server-Client Architecture
+A single HTML file embeds both the decompressor and compressed content. When opened, it automatically decompresses itself. Perfect for offline use, email attachments, or static hosting. Net savings are reduced (~9-12%) due to decompressor overhead, but no server-side processing is required.
+
+**Usage:**
+```bash
+# Generate a self-extracting .m8 file
+node m8-self-contained.js input.html output.html
+
+# Open output.html in any browser - no server needed!
+```
+
+### 2. Server-Client Architecture (not recomended general use)
 
 The client receives a minimal HTML loader (~1KB) containing the decompression script. This loader fetches the .m8 compressed content, decompresses it client-side, and renders the full page. The decompressor is cached by the browser and reused for all subsequent pages, providing pure compression savings (15-25%) on every request.
 
@@ -46,17 +57,6 @@ node server.js
 # Server automatically compresses and serves as .m8
 ```
 
-### 2. Self-Contained Files
-
-A single HTML file embeds both the decompressor and compressed content. When opened, it automatically decompresses itself. Perfect for offline use, email attachments, or static hosting. Net savings are reduced (~9-12%) due to decompressor overhead, but no server-side processing is required.
-
-**Usage:**
-```bash
-# Generate a self-extracting .m8 file
-node m8-self-contained.js input.html output.html
-
-# Open output.html in any browser - no server needed!
-```
 
 ## Performance Characteristics
 
@@ -109,6 +109,19 @@ type → y          name → n        value → v
 
 ## Installation & Setup
 
+### Self-Contained Files
+
+1. **Generate a self-extracting file:**
+```bash
+node m8-self-contained.js input.html output.m8.html
+```
+
+2. **Open directly:**
+- Double-click the file
+- Or drag into browser
+>[!NOTE]
+> If you are using this in production backup your `input.html` to something like `input.source.html` and use the `.m8.html` in your deployment
+
 ### Server-Client Model
 
 1. **Create your project structure:**
@@ -130,18 +143,6 @@ node server.js
 http://localhost:3000/index.html
 http://localhost:3000/about.html
 ```
-
-### Self-Contained Files
-
-1. **Generate a self-extracting file:**
-```bash
-node m8-self-contained.js input.html output.m8.html
-```
-
-2. **Open directly:**
-- Double-click the file
-- Or drag into browser
-- No server required!
 
 ## File Structure
 
@@ -240,16 +241,11 @@ Savings:
 ============================================================
 ```
 
-## License
-
-Open source - free to use, modify, and distribute.
 
 ## Status
 
-**Experimental proof-of-concept** - Created December 2024
+**Experimental proof-of-concept** - Created December 2025
 
 ---
 
-**Created by**: Exploring the boundaries of web compression  
-**Inspiration**: "What if HTML tags were shorter?"  
-**Result**: A working compression format that saves real bytes! 🚀
+**Created by**: No Development
