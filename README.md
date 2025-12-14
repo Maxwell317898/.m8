@@ -244,12 +244,6 @@ Node.js server that:
 - Compresses .source.html files to .m8 on-the-fly
 - Sends compression statistics in response headers
 
-### m8-converter.js
-Core compression/decompression functions:
-- `compressToM8(html)` - Compress HTML to .m8
-- `decompressFromM8(m8)` - Decompress .m8 to HTML
-- `getStats(original, compressed)` - Calculate savings
-
 ## Current Limitations
 
 - **~900 byte decompressor overhead** makes it less effective for very small files (<5KB)
