@@ -1,0 +1,1 @@
+export { dynamicCompress } from "../m8-dynamic-self/m8-dycomp.js";

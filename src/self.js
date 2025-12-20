@@ -1,0 +1,1 @@
+export { compressHTML } from "../self-contained-m8/m8-comp.js";
