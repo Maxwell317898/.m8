@@ -1,12 +1,20 @@
 {
-  "name": "@no-development-group/.m8",
+  "name": "@no-development-group/m8",
   "version": "1.0.0",
   "description": "compress large HTML with dynamic mapping tables",
   "main": "/m8-dynamic-self/m8-dycomp.js",
   "type": "module",
+
+  "files": [
+    "self-contained-m8",
+    "m8-dynamic-self",
+    "hosted-m8",
+    "LICENSE"
+  ],
+
   "repository": {
     "type": "git",
-    "url": "https://github.com/no-development-group/.m8"
+    "url": "git+https://github.com/no-development-group/m8.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
