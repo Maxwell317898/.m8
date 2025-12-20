@@ -1,24 +1,14 @@
 {
   "name": "@no-development-group/.m8",
   "version": "1.0.0",
-  "description": "[**Here is a DEMO that uses .m8 compression**](https://maxwell317898.github.io/.m8/) <br> <br> **.m8** is a novel HTML compression format that reduces file sizes by replacing verbose HTML tags and attributes with compact numeric codes. Designed as both a transmission protocol and self-extracting file format, .m8 achieves 14-28% compression on typical web pages while maintaining full compatibility with standard HTML.",
+  "description": "compress large HTML with dynamic mapping tables",
   "main": "/m8-dynamic-self/m8-dycomp.js",
-  "scripts": {
-    "test": "exit 0"
-  },
+  "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/no-development-group/.m8.git"
+    "url": "https://github.com/no-development-group/.m8"
   },
-  "author": "no-development-group",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/no-development-group/.m8/issues"
-  },
-  "homepage": "https://github.com/no-development-group/.m8#readme",
-
   "publishConfig": {
-    "@no-development-group:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   }
 }
-
