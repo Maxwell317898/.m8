@@ -1,5 +1,11 @@
 # Updates
 
+# [1.1.8] 21/12/2025
+added readme to pushtools
+
+# [1.1.7] 21/12/2025
+updated all pushtools to publish each time
+
 # [1.1.6] 21/12/2025
 updated CHANGELOG
 updated README to prioritize useage instructions still more work is needed there.
