@@ -11,6 +11,51 @@
 >[!NOTE]
 > NodeJs Server implimentation has been removed.
 
+## Installation & Setup
+
+### Self-Contained Files
+
+1. **Generate a self-extracting file:** <br>
+
+From npm
+```bash
+npm i @no-development-group/m8
+```
+```js
+// Import the dynamic compression module
+import { dynamicFunction } from '@no-development-group/m8/dynamic';
+
+// Import the legacy compression module
+import { selfFunction } from '@no-development-group/m8/self';
+```
+From repo root
+```bash
+node /m8-dynamic-self/m8-dycomp.js input.html output.m8.html
+```
+
+2. **Open directly:**
+- Double-click the file
+- Or drag into browser
+
+> [!NOTE]
+> If you are using this in production backup your `input.html` to something like `input.source.html` and use the `.m8.html` in your deployment
+
+### Advanced: Adjust Mapping Table Size
+
+For smaller pages, you can reduce overhead by limiting the mapping table:
+
+```javascript
+// Edit m8-dynamic-self-contained.js
+// Default: top 50 tags
+const tagMap = buildOptimalMapping(frequency, 50);
+
+// Smaller sites: reduce to 30 tags
+const tagMap = buildOptimalMapping(frequency, 30);
+
+// Large sites: increase to 70 tags
+const tagMap = buildOptimalMapping(frequency, 70);
+```
+
 ## How It Works
 
 The .m8 format operates on a simple principle: HTML is inherently repetitive. Tags like `<div>`, `<span>`, and `<header>` appear dozens or hundreds of times in a single document. By mapping these common elements to short numeric codes, .m8 reduces file size:
@@ -109,37 +154,6 @@ src → r           href → h        alt → a
 type → y          name → n        value → v
 ```
 
-## Installation & Setup
-
-### Self-Contained Files
-
-1. **Generate a self-extracting file:**
-```bash
-node m8-dynamic-self-contained.js input.html output.m8.html
-```
-
-2. **Open directly:**
-- Double-click the file
-- Or drag into browser
-
-> [!NOTE]
-> If you are using this in production backup your `input.html` to something like `input.source.html` and use the `.m8.html` in your deployment
-
-### Advanced: Adjust Mapping Table Size
-
-For smaller pages, you can reduce overhead by limiting the mapping table:
-
-```javascript
-// Edit m8-dynamic-self-contained.js
-// Default: top 50 tags
-const tagMap = buildOptimalMapping(frequency, 50);
-
-// Smaller sites: reduce to 30 tags
-const tagMap = buildOptimalMapping(frequency, 30);
-
-// Large sites: increase to 70 tags
-const tagMap = buildOptimalMapping(frequency, 70);
-```
 
 
 ## File Structure
