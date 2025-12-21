@@ -1,6 +1,6 @@
 {
   "name": "@no-development-group/m8",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "compress large HTML with dynamic mapping tables",
   "type": "module",
   "main": "./src/index.js",
