@@ -1,24 +1,24 @@
 # .m8 Format - Compressed HTML Protocol
 
-[**Here is a DEMO that uses .m8 compression**](https://maxwell317898.github.io/.m8/) <br> <br>
-**.m8** is a novel HTML compression format that reduces file sizes by replacing verbose HTML tags and attributes with compact numeric codes. Designed as both a transmission protocol and self-extracting file format, .m8 achieves 14-28% compression on typical web pages while maintaining full compatibility with standard HTML.
+[**Here is a DEMO that uses .m8 compression**](https://maxwell317898.github.io/.m8/) <br>
+
+**.m8** is a dynamic html compression algorithem that can reduce the size of large web pages by 20%. Additionaly you can use other web compression tools to this like gzip, this works because the .m8 (self contained) loader is recognised as normal html.
 
 > [!CAUTION]
-> Note that m8 is a Work In Progress, it should not be considered for production use yet
+> Note that m8 is a Work In Progress, it should not be considered for production use yet.
+> M8 is stable enough to use in testing projects etc.
 
-## Story
-
-I have looked up at sysadmins for ages i always wanted to improve on something that effects everything to do with the internet. After a venture into CDN i looked at webpage compression. I soon had an idea for a system that takes strain off servers and onto visitors without making them wait to see a webpage. <br>
-As for the name .m8, it mainly came from rage, waiting for things to load.
+>[!NOTE]
+> NodeJs Server implimentation has been removed.
 
 ## How It Works
 
-The .m8 format operates on a simple principle: HTML is inherently repetitive. Tags like `<div>`, `<span>`, and `<header>` appear dozens or hundreds of times in a single document. By mapping these common elements to short numeric codes, .m8 dramatically reduces file size:
+The .m8 format operates on a simple principle: HTML is inherently repetitive. Tags like `<div>`, `<span>`, and `<header>` appear dozens or hundreds of times in a single document. By mapping these common elements to short numeric codes, .m8 reduces file size:
 
 - **Tag Compression**: `<div>` → `<1>`, `<span>` → `<2>`, `<header>` → `<18>`
 - **Attribute Shorthand**: `class` → `c`, `id` → `i`, `href` → `h`
 - **Whitespace Removal**: Non-semantic whitespace between tags is stripped
-- **Dynamic Mapping**: Analyzes your HTML and builds custom tag dictionaries for optimal compression
+- **Dynamic Mapping**: Analyzes the provided HTML file and builds custom tag dictionaries for optimal compression
 
 ### Example
 
@@ -27,41 +27,13 @@ The .m8 format operates on a simple principle: HTML is inherently repetitive. Ta
 <div class="container">
   <h1>Hello World</h1>
 </div>
-
+```
+```html
 <!-- .m8 Format (35 bytes, 33% smaller) -->
 <1 c="container"><6>Hello World</6></1>
 ```
 
-## Two Deployment Models
 
-> [!NOTE]
-> We would advise that people use the self contained version along with any other compression methods, if you do not want to mess with your hosting configuration.
-
-### 1. Self-Contained Files (recommended for general use)
-
-A single HTML file embeds both the decompressor and compressed content. When opened, it automatically decompresses itself. Perfect for offline use, email attachments, or static hosting. Net savings are reduced (~10-14%) due to decompressor overhead, but no server-side processing is required.
-
-**Usage:**
-```bash
-# Generate a self-extracting .m8 file with dynamic compression
-node m8-dynamic-self-contained.js input.html output.html
-
-# Use output.html like a normal html file
-```
-
-### 2. Server-Client Architecture (not recommended for general use. Uses legacy compression)
-
-The client receives a minimal HTML loader (~1KB) containing the decompression script. This loader fetches the .m8 compressed content, decompresses it client-side, and renders the full page. The decompressor is cached by the browser and reused for all subsequent pages, providing pure compression savings (15-25%) on every request.
-
-**Usage:**
-```bash
-# Start the .m8 server
-node server.js
-
-# Create your HTML as .source.html files
-# Visit http://localhost:3000/page.html
-# Server automatically compresses and serves as .m8
-```
 
 ## Performance Characteristics
 
@@ -113,37 +85,7 @@ Top 10 Compressed Tags:
 | 100 KB    | 25-27%          | 22-25%            |
 | 500 KB    | 27-28%          | 26-27%            |
 
-## Dynamic vs Fixed Compression
 
-### Version 2.0: Dynamic Compression (Current)
-
-The new dynamic compressor analyzes your HTML and builds a **custom tag dictionary** based on actual usage:
-
-```javascript
-// Analyzes YOUR HTML and finds, for example:
-<span> used 50 times  → Gets code <1>
-<div> used 48 times   → Gets code <2>
-<p> used 20 times     → Gets code <6>
-// Rarely-used tags aren't compressed at all!
-```
-
-**Benefits:**
-- 22-28% compression (vs 15-20% with fixed mapping)
-- Adapts to semantic HTML5, custom elements, and your specific tag usage
-- Smaller mapping table (only includes tags you actually use)
-- Better compression on modern, semantic HTML documents
-
-### Version 1.0: Fixed Dictionary (Legacy)
-
-```javascript
-// Same dictionary for every file
-'div': '1', 'span': '2', 'p': '3' ...
-// ~15-20% compression regardless of content
-```
-
-## Technical Implementation
-
-Built with vanilla JavaScript and Node.js, .m8 requires no dependencies or build tools. The dynamic compression algorithm analyzes tag frequency, builds optimal mappings, and uses regex-based replacement. The decompressor reverses the process using the embedded custom lookup table. The entire decompressor is under 1KB minified.
 
 ### Dynamic Tag Mapping
 
@@ -199,27 +141,6 @@ const tagMap = buildOptimalMapping(frequency, 30);
 const tagMap = buildOptimalMapping(frequency, 70);
 ```
 
-### Server-Client Model
-
-1. **Create your project structure:**
-```
-m8-server/
-├── server.js
-├── index.source.html
-├── about.source.html
-└── contact.source.html
-```
-
-2. **Run the server:**
-```bash
-node server.js
-```
-
-3. **Access your pages:**
-```
-http://localhost:3000/index.html
-http://localhost:3000/about.html
-```
 
 ## File Structure
 
@@ -238,11 +159,6 @@ Fixed dictionary compression:
 - Includes minified decompressor (~1.3KB)
 - Decompresses itself on page load
 
-### server.js
-Node.js server that:
-- Serves minimal HTML client with decompressor
-- Compresses .source.html files to .m8 on-the-fly
-- Sends compression statistics in response headers
 
 ## Current Limitations
 
@@ -266,11 +182,11 @@ The .m8 format demonstrates that domain-specific compression can outperform gene
 ## Browser Compatibility
 
 Works in all modern browsers:
-- ✅ Chrome/Edge (Chromium)
-- ✅ Firefox
-- ✅ Safari
-- ✅ Opera
-- ⚠️ Requires JavaScript enabled
+- Chrome/Edge (Chromium)
+- Firefox
+- Safari
+- Opera
+- *Requires JavaScript to be enabled*
 
 ## Real-World Applications
 
@@ -288,61 +204,5 @@ Works in all modern browsers:
 - Sites requiring immediate SEO indexing
 - Very small pages (<5KB)
 
-## Contributing
-
-This is an experimental proof-of-concept. Ideas for improvement:
-
-1. **Enhanced compression algorithms**
-2. **Build tool integrations**
-3. **Performance benchmarking**
-4. **SEO-friendly server rendering**
-5. **Progressive decompression**
-6. **Automatic optimal mapping size detection**
-
-## Example Output
-
-```bash
-$ node m8-dynamic-self-contained.js index.source.html index.m8.html
-
-============================================================
-Dynamic Self-Contained .m8 Generator
-============================================================
-Input:  index.source.html
-Output: index.m8.html
-
-✓ Generation complete!
-
-File Sizes:
-  Original HTML:      10,446 bytes
-  Compressed .m8:     8,052 bytes
-  Mapping table:      82 bytes
-  Self-Contained:     8,987 bytes
-
-Compression Analysis:
-  Pure compression:   22.9%
-  Decompressor size:  935 bytes
-  Net savings:        14.0%
-
-Top 10 Compressed Tags:
-  <span> → <1> (used 50x)
-  <div> → <2> (used 48x)
-  <p> → <6> (used 20x)
-  <h3> → <4> (used 18x)
-  <section> → <3> (used 8x)
-  <h2> → <8> (used 6x)
-  <strong> → <5> (used 4x)
-  <html> → <12> (used 2x)
-  <head> → <13> (used 2x)
-  <meta> → <14> (used 2x)
-============================================================
-```
-
-## Status
-
-**Experimental proof-of-concept** - Version 2.0 (Dynamic Compression)
-- v2.0 - December 2024: Dynamic dictionary building, adaptive compression
-- v1.0 - December 2024: Fixed dictionary, initial proof-of-concept
-
----
 
 **Created by**: Maxwell VDP / No Development
