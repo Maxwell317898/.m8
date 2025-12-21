@@ -14,4 +14,8 @@ npm version minor
 git push
 git push --tags
 
+echo "Publishing new version to npm registry"
+
+npm publish
+
 echo "Minor version pushed"

@@ -14,4 +14,8 @@ npm version patch
 git push
 git push --tags
 
+echo "Publishing new version to npm registry"
+
+npm publish
+
 echo "Patch release pushed"

@@ -14,4 +14,8 @@ npm version major
 git push
 git push --tags
 
+echo "Publishing new version to npm registry"
+
+npm publish
+
 echo "Major release pushed"
