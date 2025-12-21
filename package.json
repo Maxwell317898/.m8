@@ -21,6 +21,6 @@
     "url": "git+https://github.com/no-development-group/m8.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   }
 }
